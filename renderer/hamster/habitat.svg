@@ -1,0 +1,264 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="habitat" viewBox="0 0 300 140" width="300" height="140">
+  <!-- Stuffy's habitat: house (left), walking floor, wheel (right). 1 unit = 1 px at 100 % scale.
+       Parts that move have ids; renderer/hamster/stuffy.js switches states with classes on <svg>. -->
+  <defs>
+    <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2c47e"/>
+      <stop offset="0.55" stop-color="#e3a95e"/>
+      <stop offset="1" stop-color="#d4924a"/>
+    </linearGradient>
+    <radialGradient id="belly" cx="0.5" cy="0.35" r="0.65">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#f6e6c8"/>
+    </radialGradient>
+    <radialGradient id="cheek" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f9b7b4" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f9b7b4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="earIn" cx="0.5" cy="0.6" r="0.6">
+      <stop offset="0" stop-color="#f7aeb5"/>
+      <stop offset="1" stop-color="#e98f9b"/>
+    </radialGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c98f5a"/>
+      <stop offset="1" stop-color="#a86f3e"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8d5a34"/>
+      <stop offset="1" stop-color="#6e4325"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6e7c6"/>
+      <stop offset="1" stop-color="#e8d2a5"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <!-- floor: a bed of wood shavings -->
+  <ellipse cx="150" cy="127" rx="146" ry="11" fill="#000" opacity="0.18" filter="url(#soft)"/>
+  <rect x="6" y="110" width="288" height="20" rx="10" fill="url(#floor)"/>
+  <g stroke="#d6bb86" stroke-width="1.4" stroke-linecap="round" opacity="0.9">
+    <path d="M20 118 q4 -2 8 0"/><path d="M44 122 q3 -3 7 -1"/><path d="M70 116 q4 2 8 0"/>
+    <path d="M100 123 q3 -2 7 0"/><path d="M126 117 q4 -2 8 1"/><path d="M178 121 q4 2 8 -1"/>
+    <path d="M204 116 q3 -2 7 0"/><path d="M232 123 q4 -2 8 0"/><path d="M260 118 q3 2 7 0"/>
+    <path d="M280 124 q3 -2 6 0"/><path d="M58 126 q3 -1 6 0"/><path d="M160 126 q4 -2 7 0"/>
+  </g>
+
+  <!-- wheel (behind Stuffy so it can run in it) -->
+  <g id="wheel">
+    <path d="M254 114 L242 72 M254 114 L266 72" stroke="#9aa3ad" stroke-width="4" stroke-linecap="round"/>
+    <rect x="236" y="110" width="36" height="6" rx="3" fill="#8a939c"/>
+    <g id="wheel-spin">
+      <circle cx="254" cy="68" r="38" fill="#eef3f7" fill-opacity="0.35" stroke="#7fb7d9" stroke-width="5"/>
+      <circle cx="254" cy="68" r="32" fill="none" stroke="#a9d0e8" stroke-width="2" stroke-dasharray="3 5"/>
+      <g stroke="#7fb7d9" stroke-width="2.5" stroke-linecap="round">
+        <line x1="254" y1="36" x2="254" y2="100"/><line x1="222" y1="68" x2="286" y2="68"/>
+        <line x1="231" y1="45" x2="277" y2="91"/><line x1="277" y1="45" x2="231" y2="91"/>
+      </g>
+      <circle cx="254" cy="68" r="6" fill="#5f9cc2"/>
+    </g>
+  </g>
+
+  <!-- a seed on the floor -->
+  <g id="floor-seed" transform="translate(196 112) rotate(-20)">
+    <ellipse cx="0" cy="0" rx="5" ry="3" fill="#3d3a33"/>
+    <path d="M-4 0 q4 -2.2 8 0" stroke="#e9e3d2" stroke-width="1" fill="none"/>
+  </g>
+
+  <!-- house -->
+  <g id="house">
+    <rect x="16" y="62" width="62" height="52" rx="6" fill="url(#wood)"/>
+    <g stroke="#9a6334" stroke-width="1" opacity="0.6">
+      <line x1="16" y1="75" x2="78" y2="75"/><line x1="16" y1="88" x2="78" y2="88"/><line x1="16" y1="101" x2="78" y2="101"/>
+    </g>
+    <path d="M9 66 L47 36 L85 66 Z" fill="url(#roof)" stroke="#5c371d" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M30 114 v-24 a17 17 0 0 1 34 0 v24 z" fill="#3b2415"/>
+    <path d="M33 114 v-22 a14 14 0 0 1 28 0 v22" fill="none" stroke="#2a180d" stroke-width="2" opacity="0.6"/>
+    <circle cx="47" cy="52" r="5" fill="#f3d9a8" stroke="#5c371d" stroke-width="1.2"/>
+
+    <!-- Stuffy asleep in the doorway, curled into a ball -->
+    <g id="sleeper">
+      <g id="sleeper-breathe">
+        <ellipse cx="47" cy="106" rx="14" ry="9" fill="url(#fur)"/>
+        <ellipse cx="41" cy="97.5" rx="3.6" ry="3.8" fill="#e3a95e"/>
+        <ellipse cx="41" cy="98" rx="2.3" ry="2.6" fill="url(#earIn)"/>
+        <ellipse cx="38" cy="106" rx="6" ry="5" fill="#f0c07c"/>
+        <path d="M35 104.5 q2 1.6 4 0" stroke="#3a2a20" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <ellipse cx="33.4" cy="107.4" rx="1.4" ry="1.1" fill="#ee8e9e"/>
+        <ellipse cx="44" cy="112" rx="4" ry="2" fill="#f4b7bd"/>
+      </g>
+    </g>
+    <!-- paused: a curtain over the door, nose peeking out underneath -->
+    <g id="curtain">
+      <path d="M30 114 v-24 a17 17 0 0 1 34 0 v24 z" fill="#c7616c"/>
+      <g stroke="#a94c57" stroke-width="1.2"><line x1="36" y1="80" x2="36" y2="114"/><line x1="42" y1="75" x2="42" y2="114"/><line x1="48" y1="74" x2="48" y2="114"/><line x1="54" y1="75" x2="54" y2="114"/><line x1="60" y1="80" x2="60" y2="114"/></g>
+      <ellipse cx="47" cy="113" rx="3" ry="2.2" fill="#ee8e9e"/>
+    </g>
+    <g id="zzz" fill="#fdf2d8" stroke="#6b4a2b" stroke-width="0.5" font-family="Segoe UI, sans-serif" font-weight="800">
+      <text class="z z1" x="62" y="92" font-size="8">z</text>
+      <text class="z z2" x="68" y="84" font-size="10">z</text>
+      <text class="z z3" x="75" y="74" font-size="12">Z</text>
+    </g>
+  </g>
+
+  <!-- ====== STUFFY ======
+       #stuffy-pos is moved by JS (translate). Local origin: x = centre of Stuffy, y = 0 near the ear tips;
+       feet are at y ~ 60, so translate(x 52) stands Stuffy on the floor. -->
+  <g id="stuffy-pos" transform="translate(150 52)">
+    <ellipse id="shadow" cx="0" cy="60" rx="24" ry="3.6" fill="#000" opacity="0.2" filter="url(#soft)"/>
+    <g id="stuffy-move">
+      <g id="stuffy" transform="scale(0.62)">
+        <g id="body-group">
+          <ellipse cx="0" cy="58" rx="41" ry="36" fill="url(#fur)"/>
+          <ellipse cx="0" cy="66" rx="25" ry="26" fill="url(#belly)"/>
+          <g stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.7" fill="none">
+            <path d="M-12 58 q2 5 0 10"/><path d="M10 62 q-2 5 0 10"/><path d="M-2 74 q2 5 0 9"/>
+          </g>
+          <g id="foot-l">
+            <ellipse cx="-17" cy="92" rx="9" ry="4.5" fill="#f4b7bd"/>
+            <g stroke="#e4959f" stroke-width="0.8" stroke-linecap="round"><path d="M-23 91 v2.5"/><path d="M-19 90.5 v2.5"/><path d="M-15 90.5 v2.5"/></g>
+          </g>
+          <g id="foot-r">
+            <ellipse cx="17" cy="92" rx="9" ry="4.5" fill="#f4b7bd"/>
+            <g stroke="#e4959f" stroke-width="0.8" stroke-linecap="round"><path d="M23 91 v2.5"/><path d="M19 90.5 v2.5"/><path d="M15 90.5 v2.5"/></g>
+          </g>
+        </g>
+
+        <g id="head-group">
+          <g id="ear-l">
+            <ellipse cx="-24" cy="10" rx="11" ry="12" fill="#e3a95e" transform="rotate(-18 -24 10)"/>
+            <ellipse cx="-24" cy="11" rx="7.5" ry="8.5" fill="url(#earIn)" opacity="0.9" transform="rotate(-18 -24 11)"/>
+          </g>
+          <g id="ear-r">
+            <ellipse cx="24" cy="10" rx="11" ry="12" fill="#e3a95e" transform="rotate(18 24 10)"/>
+            <ellipse cx="24" cy="11" rx="7.5" ry="8.5" fill="url(#earIn)" opacity="0.9" transform="rotate(18 24 11)"/>
+          </g>
+          <ellipse cx="0" cy="30" rx="31" ry="26" fill="url(#fur)"/>
+          <g id="cheeks">
+            <ellipse cx="-19" cy="37" rx="14" ry="12" fill="#f0c07c"/>
+            <ellipse cx="19" cy="37" rx="14" ry="12" fill="#f0c07c"/>
+          </g>
+          <ellipse cx="-20" cy="40" rx="8" ry="5" fill="url(#cheek)"/>
+          <ellipse cx="20" cy="40" rx="8" ry="5" fill="url(#cheek)"/>
+          <ellipse cx="0" cy="42" rx="13" ry="11" fill="#fbefd8"/>
+
+          <g id="eyes-open">
+            <g id="pupils">
+              <ellipse cx="-13" cy="27" rx="4.6" ry="5.2" fill="#15110f"/>
+              <ellipse cx="13" cy="27" rx="4.6" ry="5.2" fill="#15110f"/>
+              <circle cx="-11.6" cy="25.3" r="1.6" fill="#fff"/>
+              <circle cx="14.4" cy="25.3" r="1.6" fill="#fff"/>
+              <circle cx="-14.3" cy="29.2" r="0.7" fill="#fff" opacity="0.7"/>
+              <circle cx="11.7" cy="29.2" r="0.7" fill="#fff" opacity="0.7"/>
+            </g>
+          </g>
+          <g id="eyes-closed" stroke="#3a2a20" stroke-width="1.6" fill="none" stroke-linecap="round">
+            <path d="M-17 28 q4 3 8 0"/><path d="M9 28 q4 3 8 0"/>
+          </g>
+          <g id="eyes-happy" stroke="#3a2a20" stroke-width="1.8" fill="none" stroke-linecap="round">
+            <path d="M-17 29 q4 -5 8 0"/><path d="M9 29 q4 -5 8 0"/>
+          </g>
+
+          <path d="M-3.2 36.5 q3.2 -2.4 6.4 0 q-1 3 -3.2 3.4 q-2.2 -0.4 -3.2 -3.4 z" fill="#ee8e9e"/>
+          <g id="mouth-closed">
+            <path d="M0 40 v2.6 M0 42.6 q-2.6 2.2 -4.6 0.6 M0 42.6 q2.6 2.2 4.6 0.6" stroke="#c9707f" stroke-width="1" fill="none" stroke-linecap="round"/>
+          </g>
+          <g id="mouth-open">
+            <path d="M0 40 v1.6" stroke="#c9707f" stroke-width="1" stroke-linecap="round"/>
+            <ellipse cx="0" cy="44.6" rx="3.2" ry="2.8" fill="#b4505f"/>
+            <ellipse cx="0" cy="45.6" rx="1.8" ry="1.2" fill="#f28b99"/>
+          </g>
+
+          <g stroke="#b99a78" stroke-width="0.6" stroke-linecap="round" opacity="0.8">
+            <path d="M-8 41 q-12 -3 -22 -2"/><path d="M-8 43 q-12 1 -21 4"/>
+            <path d="M8 41 q12 -3 22 -2"/><path d="M8 43 q12 1 21 4"/>
+          </g>
+        </g>
+
+        <g id="paws">
+          <ellipse cx="-7" cy="55" rx="5.5" ry="4.2" fill="#f4b7bd"/>
+          <ellipse cx="7" cy="55" rx="5.5" ry="4.2" fill="#f4b7bd"/>
+          <g stroke="#e4959f" stroke-width="0.8" stroke-linecap="round">
+            <path d="M-10 53 v2"/><path d="M-7 52.5 v2"/><path d="M-4 53 v2"/>
+            <path d="M4 53 v2"/><path d="M7 52.5 v2"/><path d="M10 53 v2"/>
+          </g>
+        </g>
+        <!-- paws up at the mouth (grooming / nibbling) -->
+        <g id="paws-up">
+          <ellipse cx="-8" cy="47" rx="5" ry="4" fill="#f4b7bd"/>
+          <ellipse cx="8" cy="47" rx="5" ry="4" fill="#f4b7bd"/>
+        </g>
+        <g id="held-seed" transform="translate(0 50) rotate(-8)">
+          <ellipse cx="0" cy="0" rx="5.5" ry="3.2" fill="#6b655a"/>
+          <path d="M-4.4 0 q4.4 -2.2 8.8 0" stroke="#efe9d9" stroke-width="1" fill="none"/>
+        </g>
+      </g>
+
+      <!-- ===== props (plain px, around Stuffy) ===== -->
+      <g id="prop-magnifier" class="prop" transform="translate(18 28) rotate(-25)">
+        <circle cx="0" cy="0" r="8" fill="#dff1fb" fill-opacity="0.55" stroke="#6b4a2b" stroke-width="2.4"/>
+        <circle cx="-2.5" cy="-2.5" r="2.2" fill="#fff" opacity="0.8"/>
+        <line x1="0" y1="8" x2="0" y2="20" stroke="#6b4a2b" stroke-width="3.4" stroke-linecap="round"/>
+      </g>
+      <g id="prop-box" class="prop" transform="translate(-36 46)">
+        <rect x="-11" y="-8" width="22" height="18" rx="2" fill="#d9a066" stroke="#9c6a37" stroke-width="1.2"/>
+        <path d="M-11 -2 h22" stroke="#9c6a37" stroke-width="1"/>
+        <rect x="-3" y="-8" width="6" height="18" fill="#f2d6a6" opacity="0.9"/>
+      </g>
+      <g id="prop-keyboard" class="prop" transform="translate(0 50)">
+        <rect x="-20" y="0" width="40" height="10" rx="2" fill="#39414b"/>
+        <g fill="#9aa6b3">
+          <rect x="-17" y="2" width="4" height="2.4" rx="0.6"/><rect x="-11" y="2" width="4" height="2.4" rx="0.6"/><rect x="-5" y="2" width="4" height="2.4" rx="0.6"/>
+          <rect x="1" y="2" width="4" height="2.4" rx="0.6"/><rect x="7" y="2" width="4" height="2.4" rx="0.6"/><rect x="13" y="2" width="4" height="2.4" rx="0.6"/>
+          <rect x="-12" y="5.6" width="24" height="2.4" rx="0.6"/>
+        </g>
+      </g>
+      <g id="prop-notes" class="prop" fill="#fdf2d8" stroke="#6b4a2b" stroke-width="0.4">
+        <g class="note n1"><g transform="translate(-28 10)"><circle cx="0" cy="6" r="2.4"/><rect x="1.8" y="-2" width="1.2" height="8"/><path d="M3 -2 q4 1 4 4 q-2 -2 -4 -1.4 z"/></g></g>
+        <g class="note n2"><g transform="translate(24 4)"><circle cx="0" cy="6" r="2.4"/><rect x="1.8" y="-2" width="1.2" height="8"/><path d="M3 -2 q4 1 4 4 q-2 -2 -4 -1.4 z"/></g></g>
+      </g>
+      <g id="prop-antenna" class="prop" transform="translate(22 22)">
+        <line x1="0" y1="18" x2="0" y2="0" stroke="#6b7684" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="0" cy="-1" r="2.4" fill="#ef4444"/>
+        <g fill="none" stroke="#fdf2d8" stroke-width="1.2" stroke-linecap="round">
+          <path class="wave w1" d="M4 -5 q3 4 0 8"/><path class="wave w2" d="M7 -8 q5 7 0 14"/>
+          <path class="wave w1" d="M-4 -5 q-3 4 0 8"/><path class="wave w2" d="M-7 -8 q-5 7 0 14"/>
+        </g>
+      </g>
+      <g id="prop-bell" class="prop" transform="translate(24 20)">
+        <g class="ring">
+          <path d="M-6 6 q0 -10 6 -10 q6 0 6 10 l2 2 h-16 z" fill="#f5c542" stroke="#b8871a" stroke-width="1"/>
+          <circle cx="0" cy="9.5" r="1.8" fill="#b8871a"/>
+          <circle cx="0" cy="-5" r="1.4" fill="#b8871a"/>
+        </g>
+      </g>
+      <g id="prop-sign" class="prop" transform="translate(0 -16)">
+        <line x1="0" y1="8" x2="0" y2="26" stroke="#8a5a32" stroke-width="2.4" stroke-linecap="round"/>
+        <rect x="-19" y="-8" width="38" height="17" rx="3" fill="#fffaf0" stroke="#8a5a32" stroke-width="1.4"/>
+        <text x="0" y="4.6" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="10" font-weight="700" fill="#c2410c">Sure?</text>
+      </g>
+      <g id="prop-question" class="prop">
+        <text x="20" y="6" font-family="Segoe UI, sans-serif" font-size="18" font-weight="800" fill="#fdf2d8" stroke="#6b4a2b" stroke-width="0.8">?</text>
+      </g>
+      <g id="prop-dots" class="prop" fill="#fdf2d8" stroke="#6b4a2b" stroke-width="0.4">
+        <circle class="dot d1" cx="18" cy="0" r="2"/><circle class="dot d2" cx="24" cy="-4" r="2.4"/><circle class="dot d3" cx="31" cy="-9" r="2.8"/>
+      </g>
+      <g id="prop-waves" class="prop" fill="none" stroke="#fdf2d8" stroke-width="1.4" stroke-linecap="round">
+        <path class="wave w1" d="M22 6 q4 4 0 9"/><path class="wave w2" d="M26 3 q6 7 0 15"/>
+        <path class="wave w1" d="M-22 6 q-4 4 0 9"/><path class="wave w2" d="M-26 3 q-6 7 0 15"/>
+      </g>
+      <g id="prop-sparkles" class="prop" fill="#fde68a" stroke="#b8871a" stroke-width="0.3">
+        <path class="spark s1" d="M-26 8 l1.6 -4 l1.6 4 l4 1.6 l-4 1.6 l-1.6 4 l-1.6 -4 l-4 -1.6 z"/>
+        <path class="spark s2" d="M22 -2 l1.3 -3.2 l1.3 3.2 l3.2 1.3 l-3.2 1.3 l-1.3 3.2 l-1.3 -3.2 l-3.2 -1.3 z"/>
+        <path class="spark s3" d="M27 24 l1 -2.5 l1 2.5 l2.5 1 l-2.5 1 l-1 2.5 l-1 -2.5 l-2.5 -1 z"/>
+      </g>
+      <g id="prop-mic" class="prop" transform="translate(-24 30)">
+        <rect x="-3" y="-8" width="6" height="11" rx="3" fill="#fdf2d8" stroke="#6b4a2b" stroke-width="0.8"/>
+        <path d="M-5 0 q0 6 5 6 q5 0 5 -6" fill="none" stroke="#fdf2d8" stroke-width="1.2"/>
+        <line x1="0" y1="6" x2="0" y2="10" stroke="#fdf2d8" stroke-width="1.2"/>
+      </g>
+    </g>
+  </g>
+</svg>

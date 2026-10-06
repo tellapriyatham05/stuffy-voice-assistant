@@ -1,0 +1,141 @@
+/* Stuffy's animations. stuffy.js puts one "mode" class (and a few extras) on the <svg id="habitat">. */
+
+#habitat { overflow: visible; }
+#habitat * { transform-box: fill-box; }
+
+/* hidden unless a mode shows them */
+#habitat .prop, #eyes-closed, #eyes-happy, #mouth-open, #paws-up, #held-seed,
+#sleeper, #curtain, #zzz { display: none; }
+
+/* ---------- at home (asleep in the house) ---------- */
+#habitat.home #stuffy-pos, #habitat.paused #stuffy-pos { display: none; }
+#habitat.home #sleeper, #habitat.home #zzz { display: inline; }
+#habitat.paused #curtain { display: inline; }
+#sleeper-breathe { transform-origin: center bottom; animation: breathe 3.2s ease-in-out infinite; }
+#zzz .z { opacity: 0; animation: zfloat 3.6s ease-in infinite; }
+#zzz .z2 { animation-delay: 1.2s; }
+#zzz .z3 { animation-delay: 2.4s; }
+
+@keyframes breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.04, 1.07); } }
+@keyframes zfloat {
+  0% { opacity: 0; transform: translate(0, 4px); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(6px, -8px); }
+}
+
+/* ---------- always while awake: breathing + blinking ---------- */
+#stuffy-move { transform-origin: center bottom; animation: breathe 3s ease-in-out infinite; }
+#eyes-open { transform-origin: center; animation: blink 4.2s infinite; }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(0.1); } }
+
+#head-group { transform-origin: 50% 90%; transition: transform 0.25s ease; }
+#ear-l { transform-origin: 70% 90%; transition: transform 0.2s ease; }
+#ear-r { transform-origin: 30% 90%; transition: transform 0.2s ease; }
+#cheeks { transform-origin: center; transition: transform 0.25s ease; }
+#pupils { transition: transform 0.3s ease; }
+
+/* ---------- walking ---------- */
+#habitat.walking #stuffy-move { animation: waddle 0.26s ease-in-out infinite alternate; }
+#habitat.walking #foot-l { animation: step 0.26s ease-in-out infinite alternate; }
+#habitat.walking #foot-r { animation: step 0.26s ease-in-out infinite alternate-reverse; }
+@keyframes waddle { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-2.5px) rotate(3deg); } }
+@keyframes step { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+
+/* ---------- listening ---------- */
+#habitat.listen #ear-l { transform: rotate(-8deg) scale(1.12); }
+#habitat.listen #ear-r { transform: rotate(8deg) scale(1.12); }
+#habitat.listen #head-group { transform: rotate(-7deg); }
+#habitat.listen #prop-waves { display: inline; }
+#habitat.hearing #prop-waves .wave { animation: wave 0.8s ease-in-out infinite; }
+#habitat.hearing #prop-waves .w2 { animation-delay: 0.2s; }
+@keyframes wave { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
+/* ---------- thinking ---------- */
+#habitat.think #prop-dots { display: inline; }
+#habitat.think #prop-dots .dot { animation: wave 1.2s ease-in-out infinite; }
+#habitat.think #prop-dots .d2 { animation-delay: 0.2s; }
+#habitat.think #prop-dots .d3 { animation-delay: 0.4s; }
+#habitat.think #pupils { animation: lookaround 1.6s ease-in-out infinite; }
+#habitat.think #head-group { transform: rotate(5deg); }
+@keyframes lookaround { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(2px) translateY(-1px); } }
+
+/* ---------- working: one prop per kind of job ---------- */
+#habitat.act-search #prop-magnifier { display: inline; }
+#habitat.act-search #stuffy-move { animation: sniff 0.5s ease-in-out infinite alternate; }
+@keyframes sniff { from { transform: translateX(-1.5px) rotate(-2deg); } to { transform: translateX(1.5px) rotate(2deg); } }
+
+#habitat.act-box #prop-box { display: inline; }
+#habitat.act-box #stuffy-move { animation: push 0.45s ease-in-out infinite alternate; }
+@keyframes push { from { transform: translateX(0) rotate(0); } to { transform: translateX(-3px) rotate(-5deg); } }
+
+#habitat.act-type #prop-keyboard { display: inline; }
+#habitat.act-type #paws { animation: tap 0.18s ease-in-out infinite alternate; }
+#habitat.act-type #head-group { transform: rotate(0) translateY(1px); }
+@keyframes tap { from { transform: translateY(0); } to { transform: translateY(3px); } }
+
+#habitat.act-music #prop-notes { display: inline; }
+#habitat.act-music #head-group { animation: bop 0.5s ease-in-out infinite alternate; }
+#habitat.act-music #prop-notes .note { animation: noteup 1.4s ease-in-out infinite; }
+#habitat.act-music #prop-notes .n2 { animation-delay: 0.7s; }
+@keyframes bop { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+@keyframes noteup { 0% { opacity: 0; transform: translateY(4px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-8px); } }
+
+#habitat.act-antenna #prop-antenna { display: inline; }
+#habitat.act-antenna #prop-antenna .wave { animation: wave 0.7s ease-in-out infinite; }
+#habitat.act-antenna #prop-antenna .w2 { animation-delay: 0.25s; }
+
+#habitat.act-bell #prop-bell { display: inline; }
+#habitat.act-bell #prop-bell .ring { transform-origin: 50% 0; animation: ring 0.18s ease-in-out infinite alternate; }
+#habitat.act-bell #stuffy-move { animation: hop 0.5s ease-in-out infinite; }
+@keyframes ring { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+
+#habitat.act-wheel #wheel-spin { transform-origin: center; animation: spin 0.55s linear infinite; }
+#habitat.act-wheel #stuffy-move { animation: run 0.16s ease-in-out infinite alternate; }
+#habitat.act-wheel #foot-l { animation: step 0.16s ease-in-out infinite alternate; }
+#habitat.act-wheel #foot-r { animation: step 0.16s ease-in-out infinite alternate-reverse; }
+@keyframes spin { to { transform: rotate(-360deg); } }
+@keyframes run { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-2px) rotate(2deg); } }
+
+/* ---------- asking "Sure?" ---------- */
+#habitat.confirm #prop-sign { display: inline; }
+#habitat.confirm #head-group { transform: rotate(-5deg); }
+#habitat.confirm #stuffy-move { animation: hop 1.2s ease-in-out infinite; }
+
+/* ---------- done: happy jump + puffed-up cheeks ---------- */
+#habitat.happy #eyes-open { display: none; }
+#habitat.happy #eyes-happy { display: inline; }
+#habitat.happy #cheeks { transform: scale(1.18); }
+#habitat.happy #prop-sparkles { display: inline; }
+#habitat.happy #prop-sparkles .spark { animation: wave 0.6s ease-in-out infinite; }
+#habitat.happy #prop-sparkles .s2 { animation-delay: 0.2s; }
+#habitat.happy #prop-sparkles .s3 { animation-delay: 0.4s; }
+#habitat.jump #stuffy-move { animation: jump 0.55s ease-out 2; }
+@keyframes jump { 0%, 100% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.08, 0.9); } 50% { transform: translateY(-12px) scale(0.96, 1.05); } }
+@keyframes hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+/* ---------- didn't understand ---------- */
+#habitat.confused #prop-question { display: inline; }
+#habitat.confused #prop-question text { animation: hop 0.8s ease-in-out infinite; }
+#habitat.confused #head-group { transform: rotate(12deg); }
+#habitat.confused #ear-l { transform: rotate(-14deg); }
+
+/* ---------- dictation (typing everything you say) ---------- */
+#habitat.dictate #prop-keyboard, #habitat.dictate #prop-mic { display: inline; }
+#habitat.dictate #paws { animation: tap 0.22s ease-in-out infinite alternate; }
+
+/* ---------- idle life ---------- */
+#habitat.nibble #paws { display: none; }
+#habitat.nibble #paws-up, #habitat.nibble #held-seed { display: inline; }
+#habitat.nibble #head-group { animation: chew 0.22s ease-in-out infinite alternate; }
+@keyframes chew { from { transform: translateY(0); } to { transform: translateY(1.2px); } }
+#habitat.nibble #floor-seed { display: none; }
+
+#habitat.groom #paws { display: none; }
+#habitat.groom #paws-up { display: inline; animation: rub 0.3s ease-in-out infinite alternate; }
+#habitat.groom #eyes-open { display: none; }
+#habitat.groom #eyes-closed { display: inline; }
+@keyframes rub { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+
+/* ---------- talking (mouth moves with the voice) ---------- */
+#habitat.talk #mouth-closed { display: none; }
+#habitat.talk #mouth-open { display: inline; }

@@ -1,0 +1,72 @@
+{
+  "name": "stuffy",
+  "version": "2.0.0",
+  "description": "Local voice control for Windows — say Stuffy and give a command.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node tests/parser.test.js && node tests/timers.test.js",
+    "test:actions": "node tests/actions.test.js",
+    "test:voice": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/make-clips.ps1 && node tests/e2e.test.js",
+    "icon": "node scripts/gen-icon.js",
+    "dist": "electron-builder --win nsis",
+    "prestart": "node scripts/build-hamster.js",
+    "predist": "node scripts/build-hamster.js"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "sherpa-onnx-node": "^1.13.8"
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
+  },
+  "productName": "Stuffy",
+  "author": "Stuffy",
+  "build": {
+    "appId": "com.stuffy.voice",
+    "productName": "Stuffy",
+    "files": [
+      "main.js",
+      "preload.js",
+      "preload-small.js",
+      "engine.js",
+      "voice.js",
+      "brain/**",
+      "system/**",
+      "renderer/**",
+      "assets/**"
+    ],
+    "asarUnpack": [
+      "node_modules/sherpa-onnx-node/**",
+      "node_modules/sherpa-onnx-win-x64/**"
+    ],
+    "extraResources": [
+      {
+        "from": "models",
+        "to": "models",
+        "filter": [
+          "silero_vad.onnx",
+          "tiny.en-*",
+          "small-*",
+          "kokoro/**"
+        ]
+      },
+      {
+        "from": "system/helper.ps1",
+        "to": "system/helper.ps1"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

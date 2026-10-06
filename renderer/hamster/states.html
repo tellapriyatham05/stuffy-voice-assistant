@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Stuffy states</title>
+<link rel="stylesheet" href="stuffy.css">
+<style>
+  body { margin: 0; padding: 14px; background: #2a2f37; font-family: "Segoe UI", sans-serif; color: #e5e7eb;
+    display: grid; grid-template-columns: repeat(3, 330px); padding-bottom: 20px; gap: 12px; }
+  .cell { background: linear-gradient(135deg, #3b4f72, #6a4c7c 60%, #b77a68); border-radius: 12px; padding: 8px 15px 6px; }
+  .cell p { margin: 0 0 2px; font-size: 13px; font-weight: 600; }
+  .cell div { width: 300px; height: 140px; }
+</style>
+</head>
+<body>
+<script src="habitat.js"></script>
+<script src="stuffy.js"></script>
+<script>
+  // Design check: one habitat per state, with animations frozen part-way so props are visible.
+  const STATES = [
+    ['Sleeping in the house', 'home'], ['Paused (curtain closed)', 'paused'], ['Listening', 'hearing'],
+    ['Thinking', 'think'], ['Searching', 'work', 'search'], ['Opening an app', 'work', 'box'],
+    ['Typing', 'work', 'type'], ['Music / volume', 'work', 'music'], ['Wi-Fi / Bluetooth', 'work', 'antenna'],
+    ['Running in the wheel', 'work', 'wheel'], ['Reminder bell', 'work', 'bell'], ['Asking "Sure?"', 'confirm'],
+    ['Done! (happy)', 'happy'], ["Didn't understand", 'confused'], ['Dictation', 'dictate'],
+    ['Nibbling a seed', 'nibble'], ['Grooming', 'groom'], ['Talking', 'talk'],
+  ];
+  for (const [title, mode, act] of STATES) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.innerHTML = `<p>${title}</p><div>${window.HABITAT_SVG}</div>`;
+    document.body.appendChild(cell);
+    const svg = cell.querySelector('svg');
+    // unique ids per copy aren't needed for the look; gradients resolve to the first copy
+    const s = new window.Stuffy(svg);
+    clearTimeout(s.idleTimer);
+    const spot = { wheel: [254, 54, 0.8], seed: [184, 52, 1] };
+    if (mode === 'home' || mode === 'paused') { s.setClasses([mode]); continue; }
+    s.atHome = false;
+    const [x, y, sc] = act === 'wheel' ? spot.wheel : mode === 'nibble' ? spot.seed : [150, 52, 1];
+    s.place(x, y, sc);
+    if (mode === 'talk') { s.setClasses(['idle']); s.setTalking(true); continue; }
+    if (mode === 'hearing') s.setClasses(['listen', 'hearing']);
+    else if (mode === 'work') s.setClasses(['work', `act-${act}`]);
+    else if (mode === 'happy') s.setClasses(['happy']);
+    else s.setClasses([mode]);
+  }
+  // Freeze animations at a visible moment for the screenshot.
+  document.getAnimations().forEach((a) => { a.pause(); a.currentTime = 400; });
+</script>
+</body>
+</html>

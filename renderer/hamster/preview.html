@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Stuffy preview</title>
+<style>
+  body { margin: 0; font-family: "Segoe UI", sans-serif; background: #1f2329; color: #e5e7eb; }
+  .row { display: flex; gap: 24px; padding: 20px; align-items: flex-end; }
+  .big { width: 900px; height: 420px; }
+  .card { border-radius: 14px; padding: 14px; }
+  .dark { background: #20242b; }
+  .light { background: #dfe6ee; }
+  .label { font-size: 13px; opacity: 0.75; margin: 0 0 6px 4px; }
+  .desktop { position: relative; width: 900px; height: 300px; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(135deg, #34507a, #6a4c7c 55%, #c9826b); }
+  .desktop .win { position: absolute; left: 30px; top: 24px; width: 520px; height: 230px; background: #f8fafc; border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+  .desktop .win::before { content: ""; display: block; height: 26px; background: #e2e8f0; border-radius: 8px 8px 0 0; }
+  .desktop .stuffy { position: absolute; right: 26px; bottom: 44px; width: 300px; height: 140px; }
+  .desktop .taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 34px; background: rgba(20,22,26,.85); }
+  .bubble { position: absolute; right: 60px; bottom: 186px; background: rgba(20,22,26,.92); color: #f3f4f6; padding: 7px 11px;
+    border-radius: 11px; font-size: 13px; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+  .bubble small { display: block; color: #9ca3af; font-size: 11px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div>
+      <p class="label">Stuffy + habitat — enlarged 3×</p>
+      <div class="card dark"><img class="big" src="habitat.svg"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <p class="label">Real size on your screen (about 1-inch hamster), bottom-right, draggable anywhere</p>
+      <div class="desktop">
+        <div class="win"></div>
+        <div class="bubble"><small>Heard</small>Stuffy, open YouTube</div>
+        <img class="stuffy" src="habitat.svg">
+        <div class="taskbar"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

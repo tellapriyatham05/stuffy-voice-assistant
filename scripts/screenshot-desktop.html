@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Stuffy on the desktop</title>
+<link rel="stylesheet" href="../renderer/hamster/stuffy.css">
+<style>
+  body { margin: 0; font-family: "Segoe UI", sans-serif; }
+  .desktop { position: relative; width: 960px; height: 540px; overflow: hidden;
+    background: linear-gradient(135deg, #34507a, #6a4c7c 55%, #c9826b); }
+  .win { position: absolute; left: 40px; top: 36px; width: 560px; height: 380px; background: #f8fafc; border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35); overflow: hidden; }
+  .win .bar { height: 34px; background: #e2e8f0; display: flex; align-items: center; padding-left: 14px; gap: 7px; }
+  .win .bar i { width: 11px; height: 11px; border-radius: 50%; background: #cbd5e1; }
+  .win .url { margin: 18px 20px; height: 30px; border-radius: 15px; background: #e2e8f0; color: #475569; font-size: 13px;
+    line-height: 30px; padding-left: 16px; }
+  .win .line { margin: 14px 20px; height: 12px; border-radius: 6px; background: #e5e7eb; }
+  .stuffy { position: absolute; right: 30px; bottom: 54px; width: 300px; height: 140px; }
+  .taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: rgba(20,22,26,.85); }
+  .bubble { position: absolute; right: 70px; bottom: 200px; background: rgba(20,22,26,.92); color: #f3f4f6; padding: 9px 13px;
+    border-radius: 12px; font-size: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+  .bubble small { display: block; color: #9ca3af; font-size: 11px; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+  <div class="desktop">
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="url">youtube.com/results?search_query=lofi+music</div>
+      <div class="line" style="width: 80%"></div><div class="line" style="width: 60%"></div>
+      <div class="line" style="width: 70%"></div><div class="line" style="width: 45%"></div>
+    </div>
+    <div class="bubble"><small>Heard</small>Stuffy, play lofi music</div>
+    <div class="stuffy" id="stuffy"></div>
+    <div class="taskbar"></div>
+  </div>
+<script src="../renderer/hamster/habitat.js"></script>
+<script src="../renderer/hamster/stuffy.js"></script>
+<script>
+  const box = document.getElementById('stuffy');
+  box.innerHTML = window.HABITAT_SVG;
+  const s = new window.Stuffy(box.querySelector('svg'));
+  clearTimeout(s.idleTimer);
+  s.atHome = false;
+  s.place(150, 52, 1);
+  s.setClasses(['work', 'act-search']);
+  document.getAnimations().forEach((a) => { a.pause(); a.currentTime = 400; });
+</script>
+</body>
+</html>
